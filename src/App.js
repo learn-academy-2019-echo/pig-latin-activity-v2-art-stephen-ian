@@ -16,36 +16,34 @@ class App extends React.Component {
     e.preventDefault()
     // turn the input string into an array
     let translated = this.state.phrase
-
     let transNew = translated.split(" ")
-
+    let combinedA = ''
+    let vowels = ['a','e','i','o','u'] // look up how to use to find index more efficently
     let runEverything = function(array) {
         for (let i = 0; i < array.length; i++) {
-        //    console.log(array[i] + "way")
+                //var locationFirstVowel = array.filter(value => value.includes(vowels))
                 if (array[i].indexOf('a') === 0 || array[i].indexOf('e') === 0 || array[i].indexOf('i') === 0 || array[i].indexOf('o') === 0 || array[i].indexOf('u') === 0) {
                     let letters = array[i].split("")
-                    var lettersplit = letters.join("") + "way"
-                    console.log(lettersplit)
-                     return lettersplit
-                
-                }
-                else{
-                    console.log("error")
+                    combinedA = letters.join("") + "way"
+                     return combinedA
+
                 }
 
+                else if (array[i].indexOf('a') !== 0 || array[i].indexOf('e') !== 0 || array[i].indexOf('i') !== 0 || array[i].indexOf('o') !== 0 || array[i].indexOf('u') !== 0) {
+                    let changedA = array[i].substring(0,array[i].indexOf('a'))
+                    let restOfWord = array[i].substring(array[i].indexOf('a'))
+                    //if not a then find other vowels
+                    console.log(changedA)
+                    console.log(restOfWord)
+                    combinedA = restOfWord + changedA + 'ay'
+                    console.log(combinedA)
+                    return combinedA
+                }
         }
     }
-        // for (let i = 0; i < array.length; i ++) {
-            // if (array[i].charAt(0) === 'a' && array[i].charAt(0) === 'e' && array[i].charAt(0) === 'i' && array[i].charAt(0) === 'o' && array[i].charAt(0) === 'u') {
-        //         let letters = array.split("")
-        //         var lettersplit = letters.join(" ") + "way"
-        //         console.log(lettersplit)
-        //          return lettersplit
-        //     }
-        // }
     runEverything(transNew)
-// translated = lettersplit
-    this.setState({phraseTranslated: translated})
+    this.setState({phraseTranslated: combinedA})
+
 }
 
   handleChange = (e) => {
